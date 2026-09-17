@@ -61,6 +61,19 @@ def declared_skills() -> dict[str, Path]:
     return found
 
 
+def readme_table_skills() -> list[str]:
+    """Skill names linked from the skills table in README.md."""
+    pattern = re.compile(r"^\|\s*\[`([^`]+)`\]\(\./([^/]+)/SKILL\.md\)")
+    names: list[str] = []
+    for line in (ROOT / "README.md").read_text(encoding="utf-8").splitlines():
+        match = pattern.match(line)
+        if match:
+            if match.group(1) != match.group(2):
+                fail(f"README table row '{match.group(1)}' links to ./{match.group(2)}/SKILL.md")
+            names.append(match.group(1))
+    return names
+
+
 def latest_version_tag() -> str | None:
     result = subprocess.run(
         ["git", "tag", "-l", "v*", "--sort=-v:refname"],
@@ -84,6 +97,13 @@ def main() -> int:
         fail(f"marketplace entry '{name}' has no matching skill directory")
     for name in sorted(set(skills) - set(entry_names)):
         fail(f"skill directory '{name}' has no matching marketplace entry")
+
+    table_names = readme_table_skills()
+    if sorted(table_names) != sorted(entry_names):
+        fail(
+            "README skills table must list every skill exactly once: "
+            f"table has {sorted(table_names)}, catalog has {sorted(entry_names)}"
+        )
 
     versions: dict[str, str] = {}
 

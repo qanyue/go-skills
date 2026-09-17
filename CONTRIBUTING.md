@@ -22,6 +22,7 @@ One directory per skill at the repository root. Each directory is a single-skill
 - `SKILL.md` sits at the plugin root, not inside `.claude-plugin/`. Claude Code takes the invocation name from the frontmatter `name`.
 - The catalog-level `.claude-plugin/marketplace.json` lists every skill. The six skill directories and the six marketplace entries must correspond one to one — no orphan directories, no entries pointing at missing directories.
 - `templates/` is scaffold, not a skill; it is excluded from the correspondence check.
+- The skills table in `README.md` lists every skill exactly once, each row linking to `./<skill>/SKILL.md`.
 
 ## Manifest contract
 
