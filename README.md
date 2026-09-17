@@ -97,4 +97,4 @@ After linking, restart VS Code. The skills will appear in the Copilot customizat
 
 ## License
 
-MIT
+[MIT](LICENSE)
