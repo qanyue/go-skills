@@ -59,24 +59,20 @@ Every installed skill is listed under its namespaced name (`<skill>@go-skills`).
 
 ### Another Go project layout guide? No thanks.
 
-As Go has grown in popularity, developers have imported structural baggage from other languages — specifically Java and Spring Boot — and rebranded it as "best practices."
+Search "Go project layout" and you land on `golang-standards/project-layout`: nested directories, arbitrary layers (`service/`, `repository/`, `pkg/`), worker pools, mock frameworks.
 
-Search for "Go project layout" and you will land on repositories like the notorious `golang-standards/project-layout`. These templates promote deeply nested directories, arbitrary architectural layers (`service/`, `repository/`, `pkg/`), heavy worker pools, and complex mocking frameworks.
+Those are not Go patterns; they are Java patterns in Go syntax, and they fight the language. Go was built for simplicity, readability, and flat APIs. A Spring-Boot-style architecture buys circular dependencies and obscured control flow.
 
-Those are not Go patterns. They are Java patterns translated into Go syntax. They fight the language's design. Go was engineered for simplicity, readability, and flat, discoverable APIs. Force a layered, Spring-Boot-style architecture onto Go and you get circular dependencies, obscured control flow, and the loss of the breathtaking simplicity that makes the language worth using.
-
-The problem has gotten worse with LLMs. AI coding assistants are trained on the full corpus of the internet — including all of those misguided "Go best practices" guides. The result is that they confidently generate Java-in-Go-syntax by default, then argue when you push back. These skills exist to correct that: authoritative, first-principles guidance so the model stops reaching for `internal/` junk drawers, BDD frameworks, and static worker pools.
+LLMs make it worse: trained on the whole internet, they generate Java-in-Go-syntax by default, then argue. These skills correct that, so the model stops reaching for `internal/` junk drawers, BDD frameworks, and worker pools.
 
 ### A course correction
 
-As the creator of Hugo, Cobra, and Viper, and having spent years on the core Go team, I have a good sense of what a well-structured Go codebase looks like — and I am tired of arguing with LLMs trained on Java-style codebases. This playbook saves my sanity.
+I created Hugo, Cobra, and Viper. Tired of arguing with LLMs trained on Java-style codebases, I wrote this playbook around what the standard library and the best Go projects do:
 
-It strips away the noise and focuses on the architectures the Go standard library and the most successful, high-performance open-source projects actually use. It argues for:
-
-- **Domains over layers.** Delete the `internal/` junk drawer and the `pkg/` anti-pattern. Organize code by what it *does*, not by what kind of file it is.
-- **Standard library over frameworks.** Use `testing`, table-driven tests, and simple stubs instead of heavy BDD or mock-generation frameworks.
-- **Channels over mutexes.** Use Go's native concurrency primitives for orchestration rather than rigid, static worker pools.
-- **Command-first architecture.** Treat your application binary as a router for commands, entirely decoupled from your core business logic.
+- **Domains over layers.** Delete the `internal/` junk drawer and the `pkg/` anti-pattern.
+- **Standard library over frameworks.** `testing`, table-driven tests, stubs.
+- **Channels over mutexes.** Native concurrency, not static worker pools.
+- **Command-first architecture.** The binary routes commands; logic stays out.
 
 ## The Golden Rule
 
