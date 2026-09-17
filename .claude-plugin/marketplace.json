@@ -22,13 +22,13 @@
     {
       "name": "go-spec-reviewer",
       "source": "./go-spec-reviewer",
-      "category": "languages",
+      "category": "development",
       "tags": ["go", "spec", "review", "design"]
     },
     {
       "name": "go-release",
       "source": "./go-release",
-      "category": "languages",
+      "category": "development",
       "tags": ["go", "release", "semver", "goreleaser"]
     },
     {
@@ -40,7 +40,7 @@
     {
       "name": "fileflow-pathologize",
       "source": "./fileflow-pathologize",
-      "category": "languages",
+      "category": "development",
       "tags": ["go", "files", "fileflow", "pathologize"]
     }
   ]
