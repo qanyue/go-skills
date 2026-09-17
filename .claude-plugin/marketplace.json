@@ -11,37 +11,37 @@
       "name": "go",
       "source": "./go",
       "category": "languages",
-      "tags": ["go", "golang", "concurrency", "testing"]
+      "tags": ["go", "golang", "idiomatic", "patterns", "concurrency", "testing"]
     },
     {
       "name": "cobra-viper",
       "source": "./cobra-viper",
       "category": "languages",
-      "tags": ["go", "cli", "cobra", "viper", "configuration"]
+      "tags": ["go", "golang", "cli", "cobra", "viper", "configuration"]
     },
     {
       "name": "go-spec-reviewer",
       "source": "./go-spec-reviewer",
       "category": "development",
-      "tags": ["go", "spec", "review", "design"]
+      "tags": ["go", "golang", "spec", "review", "design"]
     },
     {
       "name": "go-release",
       "source": "./go-release",
       "category": "development",
-      "tags": ["go", "release", "semver", "goreleaser"]
+      "tags": ["go", "golang", "release", "semver", "goreleaser"]
     },
     {
       "name": "wails",
       "source": "./wails",
       "category": "frameworks",
-      "tags": ["go", "wails", "desktop", "gui"]
+      "tags": ["go", "wails", "desktop", "gui", "webview"]
     },
     {
       "name": "fileflow-pathologize",
       "source": "./fileflow-pathologize",
       "category": "development",
-      "tags": ["go", "files", "fileflow", "pathologize"]
+      "tags": ["go", "golang", "files", "fileflow", "pathologize"]
     }
   ]
 }
