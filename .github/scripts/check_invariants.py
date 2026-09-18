@@ -8,6 +8,7 @@ add the check here too — and vice versa.
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -85,6 +86,28 @@ def latest_version_tag() -> str | None:
     return None
 
 
+def tag_at_head() -> str | None:
+    """Version of a `v*` tag pointing at HEAD, in CI or locally."""
+    if os.environ.get("GITHUB_REF_TYPE") == "tag":
+        name = os.environ.get("GITHUB_REF_NAME", "")
+        return name[1:] if re.fullmatch(r"v\d+\.\d+\.\d+", name) else None
+    result = subprocess.run(
+        ["git", "tag", "--points-at", "HEAD", "-l", "v*"],
+        cwd=ROOT, capture_output=True, text=True, check=False,
+    )
+    for tag in result.stdout.split():
+        if re.fullmatch(r"v\d+\.\d+\.\d+", tag):
+            return tag[1:]
+    return None
+
+
+def semver(value: str) -> tuple[int, int, int] | None:
+    match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", value)
+    if match is None:
+        return None
+    return (int(match.group(1)), int(match.group(2)), int(match.group(3)))
+
+
 def main() -> int:
     marketplace = read_json(ROOT / ".claude-plugin" / "marketplace.json")
     entries = marketplace.get("plugins", [])
@@ -134,7 +157,7 @@ def main() -> int:
         elif len(description) < MIN_DESCRIPTION:
             fail(f"'{name}': SKILL.md description is {len(description)} chars; minimum is {MIN_DESCRIPTION}")
 
-        if sorted(entry.get("tags", [])) != sorted(manifest.get("keywords", [])):
+        if set(entry.get("tags", [])) != set(manifest.get("keywords", [])):
             fail(
                 f"'{name}': entry tags {sorted(entry.get('tags', []))} "
                 f"!= plugin.json keywords {sorted(manifest.get('keywords', []))}"
@@ -147,9 +170,14 @@ def main() -> int:
         fail(f"plugin versions must be identical across the catalog, got {versions}")
     elif distinct:
         version = distinct[0]
-        tag = latest_version_tag()
-        if tag is not None and tag != version:
-            fail(f"catalog version is {version} but the latest v* tag is v{tag}")
+        released = tag_at_head()
+        latest = latest_version_tag()
+        if released is not None and released != version:
+            fail(f"HEAD is tagged v{released} but the catalog version is {version}")
+        elif released is None and latest is not None:
+            current, previous = semver(version), semver(latest)
+            if current is not None and previous is not None and current < previous:
+                fail(f"catalog version {version} is older than the latest tag v{latest}")
         changelog = ROOT / "CHANGELOG.md"
         if not changelog.is_file():
             fail("CHANGELOG.md is missing")

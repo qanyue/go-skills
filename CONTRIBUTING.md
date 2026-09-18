@@ -69,7 +69,7 @@ To cut a release:
 2. Add a matching entry to `CHANGELOG.md`.
 3. Commit, then create an annotated tag `vX.Y.Z` on that commit.
 
-CI asserts that all six versions are identical, that they match the latest `v*` tag, and that `CHANGELOG.md` has an entry for that version.
+CI asserts that all six versions are identical, that a commit tagged `vX.Y.Z` carries version `X.Y.Z`, that the version is never behind the latest existing tag, and that `CHANGELOG.md` has an entry for it. A version-bump pull request therefore passes before the tag exists; the tagged commit is what must match exactly.
 
 ## Run the checks locally
 
