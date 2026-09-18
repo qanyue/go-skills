@@ -3,7 +3,7 @@
   "name": "your-skill",
   "displayName": "Your Skill",
   "description": "One or two sentences describing what this skill provides.",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "author": {
     "name": "Steve Francia",
     "email": "steve.francia@gmail.com"

@@ -90,7 +90,7 @@ lychee README.md CONTRIBUTING.md
 
 1. Copy the scaffold: `cp -r templates/skill <your-skill>`.
 2. Fill in `SKILL.md` — frontmatter `name`/`description` first, then the guidance.
-3. Fill in `.claude-plugin/plugin.json`.
+3. Fill in `.claude-plugin/plugin.json`. Set `version` to the catalog's current version — the scaffold ships `0.0.0` as a placeholder, and CI rejects any version behind the latest `v*` tag, so a copied-and-ignored placeholder fails loudly.
 4. Copy `templates/skill/marketplace-entry.json` into `.claude-plugin/marketplace.json`, replacing every placeholder. Keep the four keys.
 5. Add a row to the skills table in `README.md`.
 6. Run the three checks above.
