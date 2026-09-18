@@ -157,11 +157,11 @@ def main() -> int:
         elif len(description) < MIN_DESCRIPTION:
             fail(f"'{name}': SKILL.md description is {len(description)} chars; minimum is {MIN_DESCRIPTION}")
 
-        if set(entry.get("tags", [])) != set(manifest.get("keywords", [])):
-            fail(
-                f"'{name}': entry tags {sorted(entry.get('tags', []))} "
-                f"!= plugin.json keywords {sorted(manifest.get('keywords', []))}"
-            )
+        tags, keywords = entry.get("tags", []), manifest.get("keywords", [])
+        if set(tags) != set(keywords):
+            fail(f"'{name}': entry tags {sorted(tags)} != plugin.json keywords {sorted(keywords)}")
+        elif len(tags) != len(set(tags)) or len(keywords) != len(set(keywords)):
+            fail(f"'{name}': tags and keywords must each be free of duplicates")
 
         versions[name] = manifest.get("version", "")
 
@@ -172,12 +172,11 @@ def main() -> int:
         version = distinct[0]
         released = tag_at_head()
         latest = latest_version_tag()
+        current, previous = semver(version), semver(latest) if latest else None
         if released is not None and released != version:
             fail(f"HEAD is tagged v{released} but the catalog version is {version}")
-        elif released is None and latest is not None:
-            current, previous = semver(version), semver(latest)
-            if current is not None and previous is not None and current < previous:
-                fail(f"catalog version {version} is older than the latest tag v{latest}")
+        if current is not None and previous is not None and current < previous:
+            fail(f"catalog version {version} is older than the latest tag v{latest}")
         changelog = ROOT / "CHANGELOG.md"
         if not changelog.is_file():
             fail("CHANGELOG.md is missing")

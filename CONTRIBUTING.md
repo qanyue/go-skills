@@ -50,7 +50,7 @@ Do not repeat `description`, `version`, `author`, `homepage`, `repository`, `lic
 
 ## Tags
 
-An entry's `tags` must equal its `plugin.json` `keywords` as a set. They are the same list written once.
+An entry's `tags` must equal its `plugin.json` `keywords` as a set, with no duplicates on either side. They are the same list written once.
 
 ## SKILL.md
 
