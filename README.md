@@ -52,8 +52,8 @@ Every installed skill is listed under its namespaced name (`<skill>@go-skills`).
 
 ## Requirements
 
-- Claude Code with plugin and marketplace support (tested on 2.1.94). Other agents read skills from `.agents/skills`.
-- No runtime dependencies.
+- Claude Code with plugin and marketplace support. Use a current build: verified working on 2.1.275. An old 2.1.94 build installs the plugin but never registers its skill, so the catalog is silently inert there.
+- Other agents read skills from `.agents/skills`. No runtime dependencies.
 
 ## Why these skills exist
 
