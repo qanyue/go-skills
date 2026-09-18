@@ -1,6 +1,6 @@
 # Go Skills for Claude Code
 
-Six [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills) for Go work, published as a Claude Code marketplace: idiomatic Go, CLI architecture, design-spec review, release engineering, desktop apps, and file operations. Written by [spf13](https://github.com/spf13) — creator of Cobra, Viper, and Hugo, and former Go team lead.
+Six [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills) for Go work, published as a Claude Code marketplace: idiomatic Go, CLI architecture, design-spec review, release engineering, desktop apps, and file operations. Written by [spf13](https://github.com/spf13) — creator of Cobra, Viper, and Hugo, and former Go team lead at Google, where he co-designed Go modules.
 
 ## Skills
 
@@ -67,7 +67,7 @@ LLMs make it worse: trained on the whole internet, they generate Java-in-Go-synt
 
 ### A course correction
 
-I created Hugo, Cobra, and Viper. Tired of arguing with LLMs trained on Java-style codebases, I wrote this playbook around what the standard library and the best Go projects do:
+Tired of arguing with LLMs trained on Java-style codebases, I wrote this playbook around what the standard library and the best Go projects do:
 
 - **Domains over layers.** Delete the `internal/` junk drawer and the `pkg/` anti-pattern.
 - **Standard library over frameworks.** `testing`, table-driven tests, stubs.
